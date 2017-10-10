@@ -1,0 +1,201 @@
+<div>
+
+    <md-tab-group [(selectedIndex)]="activeTabIndex" (click)="saveIndex()">
+
+        <md-tab label="Records">
+            <md-card>
+                <div class="example-container mat-elevation-z8" style="width: 1000px">
+                    <md-table #tableRecords [dataSource]="recordsDataSource" mdSort>
+                        <ng-container mdColumnDef="date">
+                            <md-header-cell *mdHeaderCellDef> Date </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{getDate(row)}}
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="distance">
+                            <md-header-cell *mdHeaderCellDef md-sort-header> Distance
+                                <br> (meters) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.distance}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="time">
+                            <md-header-cell *mdHeaderCellDef> Time
+                                <br> (hh:mm:ss) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{trialService.getTime(row.time)}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="avs">
+                            <md-header-cell *mdHeaderCellDef> Average Speed
+                                <br> (km/h) </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{getAverageSpeed(row)}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="edit">
+                            <md-header-cell *mdHeaderCellDef> Edit </md-header-cell>
+                            <md-cell *mdCellDef="let row;">
+                                <md-icon (click)="editRecord(row)">mode_edit</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="delete">
+                            <md-header-cell *mdHeaderCellDef> Delete </md-header-cell>
+                            <md-cell *mdCellDef="let row; let row_index=index">
+                                <md-icon (click)="deleteRecord(row)">delete</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <md-header-row *mdHeaderRowDef="displayedColumns_records"></md-header-row>
+                        <md-row *mdRowDef="let row; columns: displayedColumns_records;"></md-row>
+                    </md-table>
+                </div>
+                <br>
+                <button md-raised-button color="primary" (click)="addNewRecord()">Add New Record</button>
+
+            </md-card>
+        </md-tab>
+
+        <md-tab label="Reports">
+
+            <md-card>
+                <br>
+                <div class="example-container mat-elevation-z8" style="width: 800px">
+                    <md-table #tableReports [dataSource]="reportsDataSource" mdSort>
+
+                        <ng-container mdColumnDef="week">
+                            <md-header-cell *mdHeaderCellDef md-sort-header> Week </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.cw}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="avd">
+                            <md-header-cell *mdHeaderCellDef> Total Distance
+                                <br> (meters) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.total_distance | number_to_fixed}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="avs">
+                            <md-header-cell *mdHeaderCellDef> Average Speed
+                                <br> (km/h) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.average_speed | number_to_fixed}} </md-cell>
+                        </ng-container>
+
+                        <md-header-row *mdHeaderRowDef="displayedColumns_ports"></md-header-row>
+                        <md-row *mdRowDef="let row; columns: displayedColumns_ports"></md-row>
+                    </md-table>
+                </div>
+            </md-card>
+
+        </md-tab>
+
+        <md-tab [disabled]="!trialService.current_user.admin" label="Users">
+            <md-card>
+                <div class="example-container mat-elevation-z8" style="width: 1000px">
+                    <md-table #tableRecords [dataSource]="usersDataSource" mdSort>
+                        <ng-container mdColumnDef="email">
+                            <md-header-cell *mdHeaderCellDef> Email </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{row.email}}</md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="first_name">
+                            <md-header-cell *mdHeaderCellDef> First Name </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.first_name}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="last_name">
+                            <md-header-cell *mdHeaderCellDef> Last Name</md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.surname}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="edit">
+                            <md-header-cell *mdHeaderCellDef> Edit </md-header-cell>
+                            <md-cell *mdCellDef="let row;">
+                                <md-icon (click)="editUser(row)">mode_edit</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="delete">
+                            <md-header-cell *mdHeaderCellDef> Delete </md-header-cell>
+                            <md-cell *mdCellDef="let row; let row_index=index">
+                                <md-icon (click)="deleteUser(row)">delete</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <md-header-row *mdHeaderRowDef="displayedColumns_users"></md-header-row>
+                        <md-row *mdRowDef="let row; columns: displayedColumns_users;"></md-row>
+                    </md-table>
+                </div>
+                <br>
+                <button md-raised-button color="primary" (click)="addNewUser()">Add New User</button>
+            </md-card>
+        </md-tab>
+
+        <md-tab [disabled]="!trialService.current_user.power_user" label="All Records ">
+
+            <md-card>
+
+                <div class="example-container mat-elevation-z8" style="width: 1400px">
+
+                    <md-table #tableAllRecords [dataSource]="allRecordsDataSource" mdSort>
+
+                        <ng-container mdColumnDef="email">
+                            <md-header-cell *mdHeaderCellDef> Email </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{row.email}}
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="date">
+                            <md-header-cell *mdHeaderCellDef md-sort-header> Date </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{getDate(row)}}
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="distance">
+                            <md-header-cell *mdHeaderCellDef> Distance
+                                <br> (meters) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{row.distance}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="time">
+                            <md-header-cell *mdHeaderCellDef> Time
+                                <br> (hh:mm:ss) </md-header-cell>
+                            <md-cell *mdCellDef="let row"> {{trialService.getTime(row.time)}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="avs">
+                            <md-header-cell *mdHeaderCellDef> Average Speed
+                                <br> (km/h) </md-header-cell>
+                            <md-cell *mdCellDef="let row">{{getAverageSpeed(row)}} </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="edit">
+                            <md-header-cell *mdHeaderCellDef> Edit </md-header-cell>
+                            <md-cell *mdCellDef="let row;">
+                                <md-icon (click)="editRecord(row)">mode_edit</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <ng-container mdColumnDef="delete">
+                            <md-header-cell *mdHeaderCellDef> Delete </md-header-cell>
+                            <md-cell *mdCellDef="let row; let row_index=index">
+                                <md-icon (click)="deleteRecord(row)">delete</md-icon>
+                            </md-cell>
+                        </ng-container>
+
+                        <md-header-row *mdHeaderRowDef="displayedColumns_all_records"></md-header-row>
+                        <md-row *mdRowDef="let row; columns: displayedColumns_all_records;"></md-row>
+
+                    </md-table>
+
+                </div>
+
+                <br>
+                <button md-raised-button color="primary" (click)="addNewRecord()">Add New Record</button>
+
+            </md-card>
+        </md-tab>
+
+    </md-tab-group>
+
+</div>
+
+<!-- API common test -->
+<!-- <button md-raised-button color="primary" (click)="getTripData()">Get User Trip Data API</button> -->

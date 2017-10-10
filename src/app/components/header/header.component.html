@@ -1,0 +1,22 @@
+<div>
+    <div class="header">
+        <img style="float: left" alt="3ds-Biovia" src="assets/Soshace.png">
+        <div class="application-title">
+            {{configService.projectName}}
+        </div>
+        <button md-button [mdTooltip]="login_tooltip" class="header-btn" (click)="switchUser()">
+            <i class="material-icons" style="font-size: 36px; color: white">person</i>
+        </button>
+        <div *ngIf="trialService.current_user" class="header-btn">
+            {{trialService.current_user.first_name}} {{trialService.current_user.surname}}
+        </div>
+    </div>
+
+    <div class="header-navbar">
+        <ng-container *ngIf="trialService.current_user">
+            <a class="header-link-left">{{this.configService.workflowName}}</a>
+        </ng-container>
+        <a *ngIf="trialService.current_user" class="header-link-right" (click)="createAccount()"> Create Account </a>
+    </div>
+</div>
+<router-outlet *ngIf="this.trialService.database"></router-outlet>

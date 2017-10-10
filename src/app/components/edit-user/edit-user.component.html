@@ -1,0 +1,70 @@
+<div>
+
+    <p *ngIf="edit" style="text-align: center"> Edit User:</p>
+    <p *ngIf="!edit" style="text-align: center"> Create User:</p>
+
+    <br>
+
+    <div style="display: flex; flex-direction: column; align-items: center;" *ngIf="trialService.user_to_edit">
+
+        <br>
+
+        <form>
+            <md-form-field>
+                <input mdInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="trialService.user_to_edit.email" [disabled]="edit"
+                    (change)="checkEmail()">
+                <md-error *ngIf="emailFormControl.hasError('pattern')">
+                    Please enter a valid email address
+                </md-error>
+                <md-error *ngIf="emailFormControl.hasError('required')">
+                    Email is
+                    <strong>required</strong>
+                </md-error>
+            </md-form-field>
+        </form>
+        <md-error *ngIf="!new_email_valid">Email already in use</md-error>
+        <br>
+
+        <md-input-container>
+            <input mdInput placeholder="First Name" name="first_name" required [(ngModel)]="trialService.user_to_edit.first_name">
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+            <input mdInput placeholder="Last Name" name="surname" required [(ngModel)]="trialService.user_to_edit.surname">
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+            <input mdInput placeholder="Password" type="password" name="password" [(ngModel)]="trialService.user_to_edit.password">
+        </md-input-container>
+
+        <br>
+
+        <ng-container *ngIf="!edit">
+
+            <md-input-container>
+                <input mdInput placeholder="Repeat Password" type="password" name="r_password" [(ngModel)]="repeat_password" (change)="checkRPassword()">
+
+            </md-input-container>
+            <md-error *ngIf="!r_password_valid">Incorrect password</md-error>
+            <br>
+        </ng-container>
+
+
+        <md-select *ngIf="roles.length > 0" [disabled]="!trialService.current_user.admin" style="width: 200px" [(ngModel)]="selected_role"
+            (change)="onRoleSelect()" placeholder="User Role">
+            <md-option *ngFor="let role of roles" [value]="role">{{role}}</md-option>
+        </md-select>
+
+        <br>
+        <br>
+
+        <button [disabled]="!(r_password_valid && new_email_valid && trialService.user_to_edit.email && trialService.user_to_edit.first_name && trialService.user_to_edit.surname && selected_role && r_password_valid)"
+            md-raised-button color="primary" (click)="submit()">Submit</button>
+
+    </div>
+
+</div>

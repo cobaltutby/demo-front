@@ -1,0 +1,43 @@
+<div>
+
+    <p style="text-align: center"> Edit Record:</p>
+
+    <br>
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
+
+        <md-select *ngIf="trialService.current_user.power_user" style="width: 200px" [(ngModel)]="trialService.record_to_edit.email"
+            placeholder="Email">
+            <md-option *ngFor="let user of trialService.database.user_list" [value]="user.email">{{user.email}}</md-option>
+        </md-select>
+
+        <br>
+
+        <md-form-field>
+            <input mdInput [mdDatepicker]="picker" placeholder="Date" [(ngModel)]="trialService.record_to_edit.date" (ngModelChange)="setWeek()">
+            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+            <md-datepicker #picker></md-datepicker>
+        </md-form-field>
+
+        <br>
+
+        <md-input-container>
+            <input mdInput placeholder="Distance" type="number" name="Distance" required [(ngModel)]="trialService.record_to_edit.distance">
+            <span mdSuffix>meters</span>
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+            <input mdInput placeholder="Time" name="Time" required [(ngModel)]="time_string" (ngModelChange)="setCurrentTimeFromString()">
+            <span mdSuffix>hh:mm:ss</span>
+        </md-input-container>
+
+        <br>
+
+        <button [disabled]="!(trialService.record_to_edit.date && trialService.record_to_edit.distance && trialService.record_to_edit.time)"
+            md-raised-button color="primary" (click)="submit()">Submit</button>
+
+    </div>
+
+</div>

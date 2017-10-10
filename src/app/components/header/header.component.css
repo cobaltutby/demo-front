@@ -1,0 +1,100 @@
+/* .header {
+    width: 100%; height: 70px;
+    background: #0077c8;
+} */
+
+.header-btn {
+    height: 70px;
+    min-width: 54px;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    float: right;
+    color: white;
+    font-weight: bold;
+        display: flex;
+    align-items: center;
+}
+
+
+/* .header-navbar {
+  width: 100%;
+  height: 15px;
+  padding: 0px;
+  background: #CDDEF3;
+  border-bottom: 1px solid #99BBE8;
+  border-top: 1px solid silver;
+  text-decoration: none;
+} */
+
+.header-link-left {
+    color: #005686;
+    font: bold 8pt Verdana, Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    text-align: center;
+    float: left;
+    padding-left: 10px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    text-decoration: none;
+    display: block;
+}
+
+.header-link-right {
+    color: #005686;
+    font: bold 8pt Verdana, Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-decoration: none;
+    float: right;
+    cursor: pointer;
+}
+
+.header-experiment {
+    color: #ffbc00;
+    font: normal 8pt Verdana, Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    text-align: center;
+    float: left;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-decoration: none;
+    padding-left: 10px;
+}
+
+.application-title {
+    height: 70px;
+    min-width: 54px;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    float: left;
+    font-size: 26px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    vertical-align: middle;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.application-spinner {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
