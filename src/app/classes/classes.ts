@@ -250,7 +250,7 @@ export class RecordsDataSource extends DataSource<any> {
       let propertyB: number | string = '';
 
       switch (this._sort.active) {
-        case 'distance': [propertyA, propertyB] = [a.distance, b.distance]; break;
+        case 'date_records': [propertyA, propertyB] = [Date.parse(a.date.toString()), Date.parse(a.date.toString())]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
@@ -361,7 +361,7 @@ export class AllRecordsDataSource extends DataSource<any> {
       let propertyB: number | string = '';
 
       switch (this._sort.active) {
-        case 'date': [propertyA, propertyB] = [a.date.getUTCMilliseconds(), b.date.getUTCMilliseconds()]; break;
+        case 'date': [propertyA, propertyB] = [Date.parse(a.date.toString()), Date.parse(a.date.toString())]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

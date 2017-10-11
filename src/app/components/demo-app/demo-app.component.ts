@@ -17,7 +17,7 @@ import * as Classes from '../../classes/classes';
 })
 export class DemoAppComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  displayedColumns_records = ['date', 'distance', 'time', 'avs', 'edit', 'delete'];
+  displayedColumns_records = ['date_records', 'distance', 'time', 'avs', 'edit', 'delete'];
   displayedColumns_ports = ['week', 'avd', 'avs'];
   displayedColumns_users = ['email', 'first_name', 'last_name', 'edit', 'delete'];
   displayedColumns_all_records = ['email', 'date', 'distance', 'time', 'avs', 'edit', 'delete'];

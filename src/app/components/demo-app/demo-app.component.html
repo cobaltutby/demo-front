@@ -6,14 +6,14 @@
             <md-card>
                 <div class="example-container mat-elevation-z8" style="width: 1000px">
                     <md-table #tableRecords [dataSource]="recordsDataSource" mdSort>
-                        <ng-container mdColumnDef="date">
-                            <md-header-cell *mdHeaderCellDef> Date </md-header-cell>
+                        <ng-container mdColumnDef="date_records">
+                            <md-header-cell *mdHeaderCellDef md-sort-header> Date </md-header-cell>
                             <md-cell *mdCellDef="let row">{{getDate(row)}}
                             </md-cell>
                         </ng-container>
 
                         <ng-container mdColumnDef="distance">
-                            <md-header-cell *mdHeaderCellDef md-sort-header> Distance
+                            <md-header-cell *mdHeaderCellDef> Distance
                                 <br> (meters) </md-header-cell>
                             <md-cell *mdCellDef="let row"> {{row.distance}} </md-cell>
                         </ng-container>
